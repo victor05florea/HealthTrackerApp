@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import WorkoutDetailScreen from './screens/WorkoutDetailScreen';
 
 // Importam ecranele noastre
+import ChatScreen from './screens/ChatScreen';
 import SleepScreen from './screens/SleepScreen';
 import WorkoutScreen from './screens/WorkoutScreen';
 import StepsScreen from './screens/StepsScreen';
@@ -37,6 +38,8 @@ export default function App() {
               iconName = focused ? 'barbell' : 'barbell-outline';
             } else if (route.name === 'Pasi') {
               iconName = focused ? 'walk' : 'walk-outline';
+            } else if (route.name === 'AI Coach') {
+              iconName = focused ? 'chatbubbles' : 'chatbubbles-outline';
             }
 
             return <Ionicons name={iconName} size={size} color={color} />;
@@ -45,9 +48,10 @@ export default function App() {
           tabBarInactiveTintColor: 'gray',
         })}
       >
+        <Tab.Screen name="Pasi" component={StepsScreen} />
         <Tab.Screen name="Somn" component={SleepScreen} />
         <Tab.Screen name="Sport" component={WorkoutStack} />
-        <Tab.Screen name="Pasi" component={StepsScreen} />
+        <Tab.Screen name="AI Coach" component={ChatScreen} />
       </Tab.Navigator>
       <StatusBar style="auto" />
     </NavigationContainer>
