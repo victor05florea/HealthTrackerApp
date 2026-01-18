@@ -39,3 +39,13 @@ yarn-error.*
 # generated native folders
 /ios
 /android
+
+# setari editor
+.vscode/
+
+# fisiere media
+*.mov
+*.png
+
+# Fișiere de sistem Mac
+.DS_Store
