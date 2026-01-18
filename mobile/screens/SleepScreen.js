@@ -6,7 +6,7 @@ export default function SleepScreen() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://192.168.1.134:8080/api/sleep') 
+    fetch('http://10.10.200.63:8080/api/sleep') 
       .then(response => response.json())
       .then(data => {
         setSleepData(data);

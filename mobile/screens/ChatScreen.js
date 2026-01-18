@@ -33,7 +33,7 @@ export default function ChatScreen() {
     setTimeout(() => flatListRef.current?.scrollToEnd(), 100);
 
     //Trimitem la Backend
-    fetch('http://192.168.1.134:8080/api/chat', {
+    fetch('http://10.10.200.63:8080/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message: userMsg.text })

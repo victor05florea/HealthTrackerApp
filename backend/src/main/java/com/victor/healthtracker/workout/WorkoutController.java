@@ -6,82 +6,50 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * Controller-ul principal pentru gestionarea antrenamentelor.
- * <p>
- * Aici sunt definite punctele de acces prin care aplicatia de mobil/web
- * trimite date catre server pentru a crea, citi sau sterge antrenamente.
+ * Controller pentru gestionarea antrenamentelor si exercitiilor
+ * Returneaza toate antrenamentele din baza de date, permite crearea unui antrenament nou, stergerea unui antrenament dupa ID si adaugarea de exercitii la un antrenament existent
+ * Comunică cu baza de date prin WorkoutRepository
+ * 
+ * Campuri:
+ * -workoutRepository: Repository-ul pentru gestionarea antrenamentelor in baza de date
+ * 
+ * Metode:
+ * -getAllWorkouts(): Endpoint GET care returneaza toate antrenamentele din baza de date (returneaza o lista JSON cu toate obiectele Workout)
+ * -addWorkout(workout): Endpoint POST care creeaza un antrenament nou (workout = obiectul antrenamentului de salvat, daca data nu este specificata se seteaza automat la data si ora curenta, returneaza antrenamentul salvat)
+ * -deleteWorkout(id): Endpoint DELETE care sterge un antrenament dupa ID (id = ID-ul antrenamentului de sters, datorita CascadeType.ALL stergerea antrenamentului va sterge automat si toate exercitiile asociate lui)
+ * -addExerciseToWorkout(id, exercise): Endpoint POST care adauga un exercitiu specific unui antrenament existent (id = ID-ul antrenamentului parinte, exercise = datele exercitiului copil, face legatura intre cele doua tabele Workout si Exercise, returneaza exercitiul salvat)
  */
 @RestController
-@RequestMapping("/api/workouts") //toate rutele de aici incep cu /api/workouts
-@CrossOrigin("*") //Permitem request-uri de pe orice IP
+@RequestMapping("/api/workouts")
+@CrossOrigin("*")
 public class WorkoutController {
 
-    /**
-     * Avem nevoie de Repository pentru a conecta baza de date.
-     */
     @Autowired
     private WorkoutRepository workoutRepository;
 
-    /**
-     * Functie ce returneaza toate antrenamentele din baza de date.
-     * @return O lista JSON cu toate obiectele Workout.
-     */
     @GetMapping
     public List<Workout> getAllWorkouts() {
-        //Le returnam asa cum sunt
-        //Apeleaza un "SELECT * FROM workout" in spate.
         return workoutRepository.findAll();
     }
 
-    /**
-     *Functie ce creeaza un antrenament nou.
-     * <p>
-     * Body: JSON cu datele antrenamentului (ex: {"type": "Piept"}).
-     *
-     * @return Obiectul salvat.
-     */
     @PostMapping
     public Workout addWorkout(@RequestBody Workout workout) {
-        //Validare simpla: Daca nu trimitem data de pe telefon, o punem noi automat pe cea curenta
-        //Astfel evitam erori de NullPointerException mai tarziu.
         if (workout.getDate() == null) {
             workout.setDate(LocalDateTime.now());
         }
-        //Salvam in baza de date
         return workoutRepository.save(workout);
     }
 
-    /**
-     * Functie care se ocupa de stergerea unui antrenament dupa ID.
-     * <p>
-     * Important: Deoarece am pus CascadeType.ALL in entitatea Workout,
-     * stergerea antrenamentului va sterge automat si toate exercitiile asociate lui.
-     *
-     * @param id ID-ul antrenamentului de sters.
-     */
     @DeleteMapping("/{id}")
     public void deleteWorkout(@PathVariable Long id) {
         workoutRepository.deleteById(id);
     }
 
-    /**
-     * Functie ce adauga un exercitiu specific unui antrenament existent.
-     * <p>
-     * Aceasta metoda face legatura intre cele doua tabele.
-     *
-     * @param id ID-ul antrenamentului (parinte).
-     * @param exercise Datele exercitiului (copil).
-     * @return Exercitiul salvat.
-     */
     @PostMapping("/{id}/exercises")
     public Exercise addExerciseToWorkout(@PathVariable Long id, @RequestBody Exercise exercise) {
-        //Cautam antrenamentul parinte.Daca nu exista, aruncam eroare.
-        Workout workout = workoutRepository.findById(id).orElseThrow();
-        //Ii spunem exercitiului cine e tatal lui
+        Workout workout=workoutRepository.findById(id).orElseThrow();
         exercise.setWorkout(workout);
-        //Ii spunem tatalui ca are un nou copil
         workout.getExercises().add(exercise);
-        //Salvam
         workoutRepository.save(workout);
 
         return exercise;

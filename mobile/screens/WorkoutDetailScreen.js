@@ -26,7 +26,7 @@ export default function WorkoutDetailScreen({ route }) {
     };
 
     //Verifica IP-ul
-    fetch(`http://192.168.1.134:8080/api/workouts/${workout.id}/exercises`, {
+    fetch(`http://10.10.200.63:8080/api/workouts/${workout.id}/exercises`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newExercise)

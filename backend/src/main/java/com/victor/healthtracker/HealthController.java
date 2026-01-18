@@ -5,19 +5,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Controller simplu de tip "Health Check".
- * <p>
- * Rolul acestei clase este doar sa ne confirme ca serverul a pornit cu succes
- * si ca este vizibil in retea.Nu interactioneaza cu baza de date.
+ * Controller simplu pentru verificarea serverului
+ * Verifica daca serverul a pornit corect, returneaza un mesaj simplu cand accesezi /test
+ * Nu foloseste baza de date, doar testeaza conexiunea
+ * 
+ * Metode:
+ * -sayHello(): Endpoint GET de test pentru verificarea functionalitatii serverului (returneaza un mesaj text simplu de confirmare)
  */
 @RestController
-@CrossOrigin("*") //Permite accesul oricui
+@CrossOrigin("*")
 public class HealthController {
 
-    /**
-     * Endpoint de test.
-     * @return Un mesaj text simplu de confirmare.
-     */
     @GetMapping("/test")
     public String sayHello() {
         return "Salut! Backend-ul Java functioneaza!";
