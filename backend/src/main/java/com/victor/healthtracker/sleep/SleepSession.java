@@ -7,22 +7,18 @@ import java.time.temporal.ChronoUnit;
 /**
  * Entitate pentru o sesiune de somn a utilizatorului
  * O sesiune de somn reprezinta o noapte de dormit si este mapata la o tabela in baza de date prin Hibernate
- * 
- * Campuri:
+ *
  * -id: Identificatorul unic al sesiunii de somn, generat automat de baza de date
  * -startTime: Momentul in care utilizatorul s-a culcat (ora de adormire)
  * -endTime: Momentul in care utilizatorul s-a trezit (ora de trezire)
  * 
  * Metode:
  * -SleepSession(): Constructor gol necesar pentru JPA
- * -SleepSession(startTime, endTime): Constructor cu parametri pentru crearea unei noi sesiuni (startTime = data si ora culcarii, endTime = data si ora trezirii)
- * -getDurationHours(): Calculeaza durata somnului in ore (returneaza numarul de ore rotunjit la o zecimala, ex: 7.5 ore, apare automat in JSON ca "durationHours")
- * -getId(): Returneaza ID-ul sesiunii de somn
- * -setId(id): Seteaza ID-ul sesiunii de somn
- * -getStartTime(): Returneaza momentul cand utilizatorul a adormit (data si ora culcarii)
- * -setStartTime(startTime): Seteaza momentul cand utilizatorul a adormit
- * -getEndTime(): Returneaza momentul cand utilizatorul s-a trezit (data si ora trezirii)
- * -setEndTime(endTime): Seteaza momentul cand utilizatorul s-a trezit
+ * -SleepSession(startTime, endTime): Constructor cu parametri pentru crearea unei noi sesiuni (startTime reprezinta data si ora culcarii, endTime = data si ora trezirii)
+ * -getDurationHours(): Calculeaza durata somnului in ore (returneaza numarul de ore rotunjit la o zecimala, apare automat in JSON ca "durationHours")
+ * -getId(), setId(): Returneaza/seteaza ID-ul sesiunii de somn
+ * -getStartTime(), setStartTime(): Returneaza/seteaza momentul cand utilizatorul a adormit
+ * -getEndTime(), setEndTime(): Returneaza/seteaza momentul cand utilizatorul s-a trezit
  */
 @Entity
 public class SleepSession {

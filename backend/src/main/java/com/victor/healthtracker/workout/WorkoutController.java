@@ -8,9 +8,7 @@ import java.util.List;
 /**
  * Controller pentru gestionarea antrenamentelor si exercitiilor
  * Returneaza toate antrenamentele din baza de date, permite crearea unui antrenament nou, stergerea unui antrenament dupa ID si adaugarea de exercitii la un antrenament existent
- * Comunică cu baza de date prin WorkoutRepository
- * 
- * Campuri:
+ * Comunica cu baza de date prin WorkoutRepository
  * -workoutRepository: Repository-ul pentru gestionarea antrenamentelor in baza de date
  * 
  * Metode:
@@ -34,7 +32,7 @@ public class WorkoutController {
 
     @PostMapping
     public Workout addWorkout(@RequestBody Workout workout) {
-        if (workout.getDate() == null) {
+        if (workout.getDate()==null) {
             workout.setDate(LocalDateTime.now());
         }
         return workoutRepository.save(workout);

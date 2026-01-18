@@ -10,13 +10,11 @@ import java.time.LocalDateTime;
  * Clasa care populeaza baza de date cu date de test la pornirea aplicatiei
  * Ruleaza automat cand porneste serverul (CommandLineRunner), verifica daca baza de date e goala si daca e goala, adauga cateva sesiuni de somn de test
  * Utila pentru dezvoltare ca sa nu ai tabele goale
- * 
- * Campuri:
  * -sleepRepository: Repository-ul pentru sesiunile de somn, injectat prin constructor
  * 
  * Metode:
- * -DataLoader(sleepRepository): Constructor pentru injectarea dependentei SleepRepository (sleepRepository = repository-ul pentru sesiunile de somn)
- * -run(args): Metoda care ruleaza o singura data la pornirea aplicatiei, populeaza baza de date cu date de test daca aceasta este goala (args = argumentele liniei de comanda)
+ * -DataLoader(sleepRepository): Constructor pentru injectarea dependentei SleepRepository (sleepRepository e repository-ul pentru sesiunile de somn)
+ * -run(args): Metoda care ruleaza o singura data la pornirea aplicatiei, populeaza baza de date cu date de test daca aceasta este goala
  */
 @Component
 public class DataLoader implements CommandLineRunner {

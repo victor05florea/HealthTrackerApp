@@ -12,17 +12,15 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Controller care face legatura intre aplicatia noastra si ChatGPT
+ * Controller care face legatura intre aplicatiesi ChatGPT
  * Primeste mesaje de la aplicatia mobila, le trimite la OpenAI API, primeste raspunsul de la AI si il returneaza inapoi la aplicatie
- * Nu apelam OpenAI direct din telefon pentru securitate - nu vrem sa expunem cheia API in codul aplicatiei mobile
- * 
- * Campuri:
+ *
  * -apiKey: Cheia API pentru OpenAI, injectata din application.properties
  * -model: Modelul OpenAI folosit pentru generarea raspunsurilor
  * -restTemplate: RestTemplate pentru efectuarea cererilor HTTP catre API-ul OpenAI
  * 
  * Metode:
- * -chat(userMessage): Endpoint POST principal pentru chat - primeste mesajul utilizatorului (Map cu mesajul), il trimite la OpenAI si returneaza raspunsul (Map cu raspunsul AI-ului sau mesaj de eroare)
+ * -chat(userMessage): Endpointul POST principal pentru chat primeste mesajul utilizatorului (Map cu mesajul), il trimite la OpenAI si returneaza raspunsul (Map cu raspunsul AI-ului sau mesaj de eroare)
  */
 @RestController
 @RequestMapping("/api/chat")
@@ -95,7 +93,7 @@ public class AiController {
             errorResult.put("reply", "Eroare server: " + e.getStatusCode());
             return errorResult;
         } catch (Exception e) {
-            System.out.println("!!! ALTA EROARE !!!");
+            System.out.println("ALTA EROARE!");
             e.printStackTrace();
             Map<String, String> errorResult=new HashMap<>();
             errorResult.put("reply","Eroare interna.");

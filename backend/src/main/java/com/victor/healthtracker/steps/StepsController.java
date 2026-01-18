@@ -7,9 +7,8 @@ import java.time.LocalDate;
 /**
  * Controller pentru gestionarea pasilor utilizatorului
  * Permite citirea numarului de pasi pentru ziua de azi si salvarea/actualizarea pasilor pentru ziua curenta
- * Comunică cu baza de date prin StepsRepository si returneaza date in format JSON pentru aplicatia mobila
- * 
- * Campuri:
+ * Comunica cu baza de date prin StepsRepository si returneaza date in format JSON pentru aplicatia mobila
+ *
  * -stepsRepository: Repository-ul pentru lucrul cu datele despre pasi din baza de date
  * 
  * Metode:
@@ -26,17 +25,13 @@ public class StepsController {
 
     @GetMapping("/today")
     public DailySteps getTodaySteps() {
-        LocalDate today = LocalDate.now();
-
-        return stepsRepository.findByDate(today)
-                .orElse(new DailySteps(today, 0));
+        LocalDate today=LocalDate.now();
+        return stepsRepository.findByDate(today).orElse(new DailySteps(today,0));
     }
-
     @PostMapping
     public DailySteps updateSteps(@RequestBody int stepsCount) {
-        LocalDate today = LocalDate.now();
-        DailySteps dailySteps = stepsRepository.findByDate(today)
-                .orElse(new DailySteps(today, 0));
+        LocalDate today=LocalDate.now();
+        DailySteps dailySteps=stepsRepository.findByDate(today).orElse(new DailySteps(today, 0));
         dailySteps.setSteps(stepsCount);
         return stepsRepository.save(dailySteps);
     }

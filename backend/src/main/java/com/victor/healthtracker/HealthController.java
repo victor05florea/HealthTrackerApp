@@ -10,12 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
  * Nu foloseste baza de date, doar testeaza conexiunea
  * 
  * Metode:
- * -sayHello(): Endpoint GET de test pentru verificarea functionalitatii serverului (returneaza un mesaj text simplu de confirmare)
+ * -sayHello(): Endpoint GET de test pentru verificarea functionalitatii serverului
  */
 @RestController
 @CrossOrigin("*")
 public class HealthController {
-
     @GetMapping("/test")
     public String sayHello() {
         return "Salut! Backend-ul Java functioneaza!";

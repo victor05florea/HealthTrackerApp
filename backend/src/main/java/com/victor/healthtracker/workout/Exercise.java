@@ -15,29 +15,23 @@ import jakarta.persistence.*;
  * -sets: Numarul de serii efectuate
  * -reps: Numarul de repetari pe serie
  * -weight: Greutatea folosita (ex: 12.5 kg)
- * -workout: Relatia cu antrenamentul parinte (ManyToOne, Foreign Key 'workout_id', @JsonIgnore previne serializarea circulara)
+ * -workout: Relatia cu antrenamentul parinte (ManyToOne, Foreign Key 'workout_id')
  * 
  * Metode:
  * -Exercise(): Constructor gol necesar pentru JPA
- * -Exercise(name, sets, reps, weight, workout): Constructor cu date pentru crearea unui exercitiu nou (name = numele exercitiului, sets = numarul de serii, reps = numarul de repetari, weight = greutatea folosita, workout = antrenamentul din care face parte)
- * -getId(): Returneaza ID-ul exercitiului
- * -setId(id): Seteaza ID-ul exercitiului
- * -getName(): Returneaza numele exercitiului
- * -setName(name): Seteaza numele exercitiului
- * -getSets(): Returneaza numarul de serii
- * -setSets(sets): Seteaza numarul de serii
- * -getReps(): Returneaza numarul de repetari
- * -setReps(reps): Seteaza numarul de repetari
- * -getWeight(): Returneaza greutatea folosita
- * -setWeight(weight): Seteaza greutatea folosita
- * -getWorkout(): Returneaza antrenamentul din care face parte exercitiul
- * -setWorkout(workout): Seteaza antrenamentul din care face parte exercitiul
+ * -Exercise(name,sets,reps,weight,workout): Constructor cu date pentru crearea unui exercitiu nou
+ * -getId(), setId(): Returneaza/seteaza ID-ul exercitiului
+ * -getName(), setName(): Returneaza/seteaza numele exercitiului
+ * -getSets(), setSets(): Returneaza/seteaza numarul de serii
+ * -getReps(), setReps(): Returneaza/seteaza numarul de repetari
+ * -getWeight(), setWeight(): Returneaza/seteaza greutatea folosita
+ * -getWorkout(), setWorkout(): Returneaza/seteaza antrenamentul din care face parte exercitiul
  */
 @Entity
 public class Exercise {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     private String name;
     private int sets;
@@ -50,7 +44,6 @@ public class Exercise {
     private Workout workout;
 
     public Exercise() {}
-
     public Exercise(String name,int sets,int reps,double weight,Workout workout) {
         this.name=name;
         this.sets=sets;
@@ -58,51 +51,39 @@ public class Exercise {
         this.weight=weight;
         this.workout=workout;
     }
-
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id=id;
     }
-
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name=name;
     }
-
     public int getSets() {
         return sets;
     }
-
     public void setSets(int sets) {
         this.sets=sets;
     }
-
     public int getReps() {
         return reps;
     }
-
     public void setReps(int reps) {
         this.reps=reps;
     }
-
     public double getWeight() {
         return weight;
     }
-
     public void setWeight(double weight) {
         this.weight=weight;
     }
-
     public Workout getWorkout() {
         return workout;
     }
-
     public void setWorkout(Workout workout) {
         this.workout=workout;
     }

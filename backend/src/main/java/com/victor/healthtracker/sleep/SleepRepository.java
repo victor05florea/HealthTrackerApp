@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * Repository pentru lucrul cu tabela SleepSession din baza de date
- * Extinde JpaRepository pentru operatii CRUD de baza (save, findAll, delete, etc.)
+ * Extinde JpaRepository pentru operatii CRUD de baza (save, findAll, delete etc)
  * Spring genereaza automat implementarea acestei interfete
  * 
  * Metode:
