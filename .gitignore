@@ -49,3 +49,4 @@ yarn-error.*
 
 # Fișiere de sistem Mac
 .DS_Store
+design/

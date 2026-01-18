@@ -1,14 +1,12 @@
 package com.victor.healthtracker.sleep;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 /**
  * Entitate pentru o sesiune de somn a utilizatorului
- * O sesiune de somn o reprezinta o noapte de dormit si este mapata la o tabela in baza de date prin Hibernate
+ * O sesiune de somn reprezinta o noapte de dormit si este mapata la o tabela in baza de date prin Hibernate
  * 
  * Campuri:
  * -id: Identificatorul unic al sesiunii de somn, generat automat de baza de date
@@ -16,8 +14,9 @@ import java.time.LocalDateTime;
  * -endTime: Momentul in care utilizatorul s-a trezit (ora de trezire)
  * 
  * Metode:
- * -SleepSession(): Constructor implicit necesar pentru JPA
- * -SleepSession(startTime, endTime): Constructor complet pentru crearea unei noi sesiuni (startTime = data si ora culcarii, endTime = data si ora trezirii)
+ * -SleepSession(): Constructor gol necesar pentru JPA
+ * -SleepSession(startTime, endTime): Constructor cu parametri pentru crearea unei noi sesiuni (startTime = data si ora culcarii, endTime = data si ora trezirii)
+ * -getDurationHours(): Calculeaza durata somnului in ore (returneaza numarul de ore rotunjit la o zecimala, ex: 7.5 ore, apare automat in JSON ca "durationHours")
  * -getId(): Returneaza ID-ul sesiunii de somn
  * -setId(id): Seteaza ID-ul sesiunii de somn
  * -getStartTime(): Returneaza momentul cand utilizatorul a adormit (data si ora culcarii)
@@ -29,40 +28,38 @@ import java.time.LocalDateTime;
 public class SleepSession {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-
-    public SleepSession() {
-    }
-
-    public SleepSession(LocalDateTime startTime, LocalDateTime endTime) {
+    public SleepSession(){}
+    public SleepSession(LocalDateTime startTime, LocalDateTime endTime){
         this.startTime=startTime;
         this.endTime=endTime;
     }
-
-    public Long getId() {
-        return id;
+    public double getDurationHours() {
+        if (startTime!=null && endTime!=null) {
+            long minutes=ChronoUnit.MINUTES.between(startTime,endTime);
+            return Math.round((minutes/60.0)*10.0)/10.0;
+        }
+        return 0;
     }
-
-    public void setId(Long id) {
+    public Long getId() { 
+        return id; 
+    }
+    public void setId(Long id) { 
         this.id=id;
     }
-
-    public LocalDateTime getStartTime() {
-        return startTime;
+    public LocalDateTime getStartTime() { 
+        return startTime; 
     }
-
-    public void setStartTime(LocalDateTime startTime) {
+    public void setStartTime(LocalDateTime startTime) { 
         this.startTime=startTime;
     }
-
-    public LocalDateTime getEndTime() {
-        return endTime;
+    public LocalDateTime getEndTime() { 
+        return endTime; 
     }
-
-    public void setEndTime(LocalDateTime endTime) {
+    public void setEndTime(LocalDateTime endTime) { 
         this.endTime=endTime;
     }
 }
