@@ -10,7 +10,7 @@ export default function SleepScreen() {
   
   const [showPicker, setShowPicker] = useState(false); // false, 'bed', sau 'wake'
   
-  const IP_ADRESA = '10.10.200.63';
+  const IP_ADRESA = '10.231.34.231';
   const API_URL = `http://${IP_ADRESA}:8080/api/sleep`; 
 
   const onDateChange = (event, selectedDate) => {

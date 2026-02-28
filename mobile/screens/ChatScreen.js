@@ -33,14 +33,14 @@ export default function ChatScreen() {
     setTimeout(() => flatListRef.current?.scrollToEnd(), 100);
 
     //Trimitem la Backend
-    fetch('http://10.10.200.63:8080/api/chat', {
+    fetch('http://10.231.34.231:8080/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message: userMsg.text })
     })
     .then(res => res.json())
     .then(data => {
-      //Adaugam raspunsul
+      //Adaug raspunsul
       const aiMsg = { id: Date.now().toString() + '_ai', text: data.reply, sender: 'ai' };
       setMessages(prev => [...prev, aiMsg]);
       setLoading(false);

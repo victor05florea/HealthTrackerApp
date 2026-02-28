@@ -21,10 +21,12 @@ import java.util.List;
 public class SleepController {
     @Autowired
     private SleepRepository sleepRepository;
+
     @GetMapping("/history")
     public List<SleepSession> getHistory() {
         return sleepRepository.findAllByOrderByStartTimeDesc();
     }
+
     @PostMapping
     public SleepSession addSession(@RequestBody SleepSession session) {
         if (session.getEndTime().isBefore(session.getStartTime())) {
@@ -32,6 +34,7 @@ public class SleepController {
         }
         return sleepRepository.save(session);
     }
+
     @DeleteMapping("/{id}")
     public void deleteSession(@PathVariable Long id) {
         sleepRepository.deleteById(id);

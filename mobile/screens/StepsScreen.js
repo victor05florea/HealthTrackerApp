@@ -58,7 +58,7 @@ export default function StepsScreen() {
 
   const syncSteps = () => {
     //Verifica IP-ul
-    fetch('http://10.10.200.63:8080/api/steps', {
+    fetch('http://10.231.34.231:8080/api/steps', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(currentStepCount)

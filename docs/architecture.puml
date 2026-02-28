@@ -1,0 +1,61 @@
+@startuml
+title Arhitectura HealthTracker
+
+skinparam packageStyle rectangle
+
+actor "Utilizator" as user
+
+rectangle "Client" {
+  [App Mobile\nReact Native / Expo] as mobile
+  note bottom of mobile
+    Ecrane: StepsScreen, SleepScreen,
+    WorkoutScreen, WorkoutDetailScreen, ChatScreen
+  end note
+}
+
+rectangle "Backend - Spring Boot" {
+  package "Controllers (REST)" {
+    [HealthController] as hc
+    [SleepController] as slc
+    [StepsController] as stc
+    [WorkoutController] as wc
+    [AiController] as ac
+  }
+  package "Repositories (JPA)" {
+    [SleepRepository] as slr
+    [StepsRepository] as str
+    [WorkoutRepository] as wr
+  }
+  package "Entități" {
+    [SleepSession] as SleepSession
+    [DailySteps] as DailySteps
+    [Workout\nExercise] as Workout
+  }
+}
+
+database "PostgreSQL" as db
+cloud "Extern" {
+  [OpenAI API] as openai
+}
+
+user --> mobile : folosește
+mobile --> hc : GET /test
+mobile --> slc : /api/sleep
+mobile --> stc : /api/steps
+mobile --> wc : /api/workouts
+mobile --> ac : /api/chat
+
+slc --> slr
+stc --> str
+wc --> wr
+
+slr --> SleepSession
+str --> DailySteps
+wr --> Workout
+
+slr --> db
+str --> db
+wr --> db
+
+ac --> openai : HTTPS, chat completions
+@enduml

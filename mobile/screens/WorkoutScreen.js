@@ -19,7 +19,7 @@ export default function WorkoutScreen({ navigation }) {
 
   //Functia de incarcare a istoricului
   const fetchWorkouts = () => {
-    fetch('http://10.10.200.63:8080/api/workouts')
+    fetch('http://10.231.34.231:8080/api/workouts')
       .then(res => res.json())
       .then(data => setWorkouts(data.reverse())) 
       .catch(err => console.error("Eroare fetch:", err));
@@ -58,7 +58,7 @@ export default function WorkoutScreen({ navigation }) {
           text: "Da", 
           style: "destructive",
           onPress: () => {
-            fetch(`http://10.10.200.63:8080/api/workouts/${id}`, { method: 'DELETE' })
+            fetch(`http://10.231.34.231:8080/api/workouts/${id}`, { method: 'DELETE' })
               .then(() => {
                 // Scoatem elementul din lista locala ca sa nu mai facem request la server
                 setWorkouts(prevWorkouts => prevWorkouts.filter(item => item.id !== id));
